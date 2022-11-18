@@ -109,25 +109,25 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: OpenWrt_buildinfo
-          path: ${{ REPO_PATH }}/artifact/buildinfo/
+          path: ${{ env.REPO_PATH }}/artifact/buildinfo/
 
       - name: Deliver package
         uses: actions/upload-artifact@v3
         with:
           name: OpenWrt_package
-          path: ${{ REPO_PATH }}/artifact/package/
+          path: ${{ env.REPO_PATH }}/artifact/package/
 
       - name: Deliver firmware
         uses: actions/upload-artifact@v3
         with:
           name: OpenWrt_firmware
-          path: ${{ REPO_PATH }}/bin/targets/
+          path: ${{ env.REPO_PATH }}/bin/targets/
 
       - name: Upload release asset
         if: github.event == 'release'
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.REPO_RW }}
-          file: ${{ REPO_PATH }}/artifact/firmware/*
+          file: ${{ env.REPO_PATH }}/artifact/firmware/*
           tag: ${{ github.ref }}
           file_glob: true
