@@ -69,8 +69,7 @@ jobs:
       - name: Load Custom Configuration
         run: |
           mv ${{ inputs.build_config }} $REPO_PATH/.config
-          cat config/generic_package.config >> $REPO_PATH/.config
-          cat config/generic_custom_package.config >> $REPO_PATH/.config
+          cat config/custom_package.config >> $REPO_PATH/.config
           cd $REPO_PATH
           chmod +x $GITHUB_WORKSPACE/scripts/config.sh
           $GITHUB_WORKSPACE/scripts/config.sh
