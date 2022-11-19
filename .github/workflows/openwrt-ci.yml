@@ -62,6 +62,7 @@ jobs:
       - name: Update and Install feeds
         run: |
           cd $REPO_PATH
+          echo "src-git helloworld https://github.com/fw876/helloworld.git" >> feeds.conf.default
           ./scripts/feeds update -a
           ./scripts/feeds install -a
 
@@ -99,17 +100,9 @@ jobs:
           cd $REPO_PATH
           mkdir -p ./artifact/firmware
           mkdir -p ./artifact/package
-          mkdir -p ./artifact/buildinfo
           rm -rf $(find ./bin/targets/ -type d -name "packages")
           cp -rf $(find ./bin/targets/ -type f) ./artifact/firmware/
           cp -rf $(find ./bin/packages/ -type f -name "*.ipk") ./artifact/package/
-          cp -rf $(find ./bin/targets/ -type f -name "*.buildinfo" -o -name "*.manifest") ./artifact/buildinfo/
-
-      - name: Deliver buildinfo
-        uses: actions/upload-artifact@v3
-        with:
-          name: OpenWrt_buildinfo
-          path: ${{ env.REPO_PATH }}/artifact/buildinfo/
 
       - name: Deliver package
         uses: actions/upload-artifact@v3
